@@ -5,11 +5,11 @@ import android.view.WindowManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.annotation.RequiresPermission;
+import androidx.annotation.RequiresPermission;
 import android.util.Log;
 
 import com.facebook.react.bridge.Callback;
@@ -20,7 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.identity.intents.model.UserAddress;
+// import com.google.android.gms.identity.intents.model.UserAddress;
 import com.google.android.gms.wallet.*;
 
 import com.facebook.react.bridge.ActivityEventListener;
@@ -72,20 +72,20 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule implem
                                 MaskedWallet maskedWallet =
                                         data.getParcelableExtra(WalletConstants.EXTRA_MASKED_WALLET);
 
-                                Log.i(REACT_CLASS, "ANDROID PAY SUCCESS" + maskedWallet.getEmail());
-                                Log.i(REACT_CLASS, "ANDROID PAY SUCCESS" + buildAddressFromUserAddress(maskedWallet.getBuyerBillingAddress()));
+                                // Log.i(REACT_CLASS, "ANDROID PAY SUCCESS" + maskedWallet.getEmail());
+                                // Log.i(REACT_CLASS, "ANDROID PAY SUCCESS" + buildAddressFromUserAddress(maskedWallet.getBuyerBillingAddress()));
 
-                                UserAddress userAddress = maskedWallet.getBuyerShippingAddress();
-                                WritableNativeMap shippingAddress = userAddress != null
-                                    ? buildAddressFromUserAddress(userAddress)
-                                    : null;
+                                // UserAddress userAddress = maskedWallet.getBuyerShippingAddress();
+                                // WritableNativeMap shippingAddress = userAddress != null
+                                //     ? buildAddressFromUserAddress(userAddress)
+                                //     : null;
 
 
                                 // TODO: Move into function
                                 WritableNativeMap paymentDetails = new WritableNativeMap();
                                 paymentDetails.putString("paymentDescription", maskedWallet.getPaymentDescriptions()[0]);
                                 paymentDetails.putString("payerEmail", maskedWallet.getEmail());
-                                paymentDetails.putMap("shippingAddress", shippingAddress);
+                                // paymentDetails.putMap("shippingAddress", shippingAddress);
                                 paymentDetails.putString("googleTransactionId", maskedWallet.getGoogleTransactionId());
 
                                 sendEvent(reactContext, "NativePayments:onuseraccept", paymentDetails);
@@ -203,7 +203,7 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule implem
         final MaskedWalletRequest maskedWalletRequest = MaskedWalletRequest.newBuilder()
                 .setPaymentMethodTokenizationParameters(parameters)
                 .setPhoneNumberRequired(shouldRequestPayerPhone)
-                .setShippingAddressRequired(shouldRequestShipping)
+                // .setShippingAddressRequired(shouldRequestShipping)
                 .setEstimatedTotalPrice(total.getString("value"))
                 .setCurrencyCode(total.getString("currency"))
                 .build();
@@ -302,20 +302,22 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule implem
         return list;
     }
 
-    private static WritableNativeMap buildAddressFromUserAddress(UserAddress userAddress) {
+    private static WritableNativeMap buildAddressFromUserAddress(
+		// UserAddress userAddress
+	) {
         WritableNativeMap address = new WritableNativeMap();
 
-        address.putString("recipient", userAddress.getName());
-        address.putString("organization", userAddress.getCompanyName());
-        address.putString("addressLine", userAddress.getAddress1());
-        address.putString("city", userAddress.getLocality());
-        address.putString("region", userAddress.getAdministrativeArea());
-        address.putString("country", userAddress.getCountryCode());
-        address.putString("postalCode", userAddress.getPostalCode());
-        address.putString("phone", userAddress.getPhoneNumber());
-        address.putNull("languageCode");
-        address.putString("sortingCode", userAddress.getSortingCode());
-        address.putString("dependentLocality", userAddress.getLocality());
+        // address.putString("recipient", userAddress.getName());
+        // address.putString("organization", userAddress.getCompanyName());
+        // address.putString("addressLine", userAddress.getAddress1());
+        // address.putString("city", userAddress.getLocality());
+        // address.putString("region", userAddress.getAdministrativeArea());
+        // address.putString("country", userAddress.getCountryCode());
+        // address.putString("postalCode", userAddress.getPostalCode());
+        // address.putString("phone", userAddress.getPhoneNumber());
+        // address.putNull("languageCode");
+        // address.putString("sortingCode", userAddress.getSortingCode());
+        // address.putString("dependentLocality", userAddress.getLocality());
 
         return address;
     }
