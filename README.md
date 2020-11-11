@@ -25,6 +25,8 @@ npx jetify
 
 # Guides
 
+Please note: the current `examples` directory hasn't bee updated since the fork. They probably won't work out of the box, but feel free to explore the code.
+
 - Stripe: Apple Pay
 
 # Roadmap
