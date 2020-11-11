@@ -50,6 +50,7 @@ module.exports = {
     "no-trailing-spaces": 0,
     "import/order": 0,
     "no-lonely-if": 0,
+    "no-underscore-dangle": 0,
   },
   "env": {
     "jest": true

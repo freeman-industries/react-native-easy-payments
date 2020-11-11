@@ -8,7 +8,8 @@
     "run:demo": "cd examples/native && yarn run:demo",
     "lint": "eslint ./lib/js",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest"
+    "test": "jest",
+    "test:verbose": "jest --verbose --coverage"
   },
   "repository": "https://github.com/freeman-industries/react-native-easy-payments",
   "keywords": [
