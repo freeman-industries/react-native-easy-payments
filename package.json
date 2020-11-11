@@ -41,7 +41,7 @@
   },
   "peerDependencies": {
     "react": ">=15",
-    "react-native": ">=0.41"
+    "react-native": ">=0.60"
   },
   "jest": {
     "testPathIgnorePatterns": [
