@@ -12,7 +12,7 @@ module.exports = {
     "max-len": 0,
     "no-continue": 0,
     'no-case-declarations': 0,
-    "indent": [2, "spaces", { "SwitchCase": 1, "VariableDeclarator": 1, "ignoredNodes": ["TemplateLiteral > *"] }],
+    "indent": [2, "tab", { "SwitchCase": 1, "VariableDeclarator": 1, "ignoredNodes": ["TemplateLiteral > *"] }],
     "class-methods-use-this": 0,
     "no-restricted-syntax": 0,
     "prefer-template": 0,

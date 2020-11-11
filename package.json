@@ -6,6 +6,8 @@
     "run:ios": "cd examples/native && yarn run:ios",
     "run:web": "cd examples/web && yarn run:web",
     "run:demo": "cd examples/native && yarn run:demo",
+    "lint": "eslint ./lib/js",
+    "lint:fix": "npm run lint -- --fix",
     "test": "jest"
   },
   "repository": "https://github.com/freeman-industries/react-native-easy-payments",
