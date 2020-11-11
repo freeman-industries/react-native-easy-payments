@@ -36,6 +36,9 @@
   "devDependencies": {
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
     "husky": "^0.14.1",
     "jest": "20.0.4",
     "react-test-renderer": "16.0.0-alpha.12"
