@@ -1,5 +1,7 @@
 # react-native-easy-payments
 
+[![Build Status](https://travis-ci.org/freeman-industries/react-native-easy-payments.svg?branch=master)](https://travis-ci.org/freeman-industries/react-native-easy-payments)
+
 Welcome to the best and most comprehensive library for integrating payments into your React Native app.
 
 This library is designed to be fully compatible with React Native 0.60 and onwards.
