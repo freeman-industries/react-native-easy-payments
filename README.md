@@ -35,6 +35,7 @@ npx jetify
 
 ## Planned
 
+- Web: Apple Pay
 - Stripe: Android Pay
 - Braintree: Apple Pay
 - Braintree: Android Pay
