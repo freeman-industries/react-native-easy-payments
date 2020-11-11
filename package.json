@@ -50,8 +50,7 @@
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/examples/",
-      "lib/js/__tests__"
+      "/examples/"
     ]
   }
 }
