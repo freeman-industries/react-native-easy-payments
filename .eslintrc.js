@@ -1,5 +1,9 @@
 module.exports = {
   "extends": "airbnb-base",
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
   "rules": {
     "import/no-named-as-default-member": 0,
     "import/no-named-as-default": 0,
