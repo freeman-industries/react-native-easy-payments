@@ -45,7 +45,11 @@ The library fell out of regular maintenance and is not compatible with later Rea
 
 # Contributors
 
+## Active
 - @nabilfreeman
+
+## Retired
+- @naoufal
 
 ## Join us!
 
