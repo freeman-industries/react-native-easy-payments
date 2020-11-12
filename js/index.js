@@ -1,2 +1,2 @@
-export { PaymentRequest } from './PaymentRequest';
+export { default as PaymentRequest } from './PaymentRequest';
 export { PKPaymentButton } from './PKPaymentButton';
