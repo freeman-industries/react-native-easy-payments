@@ -5,7 +5,7 @@ version = package["version"]
 giturl = package["repository"]
 
 Pod::Spec.new do |s|
-  s.name         = "ReactNativeEasyPayments"
+  s.name         = "react-native-easy-payments"
   s.version      = version
   s.summary      = "react-native-easy-payments"
   s.description  = <<-DESC
