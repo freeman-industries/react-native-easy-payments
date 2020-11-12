@@ -4,6 +4,10 @@ const ERROR = 2;
 
 module.exports = {
   "extends": "airbnb-base",
+  "parser": "babel-parser",
+  "plugins": [
+    "flowtype"
+  ],
   "rules": {
     "import/no-named-as-default-member": IGNORE,
     "import/no-named-as-default": IGNORE,
