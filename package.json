@@ -10,6 +10,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest"
   },
+  "homepage": "https://github.com/freeman-industries/react-native-easy-payments",
   "repository": "https://github.com/freeman-industries/react-native-easy-payments",
   "keywords": [
     "react",
