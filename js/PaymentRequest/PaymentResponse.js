@@ -8,7 +8,7 @@ import type {
 } from './types';
 
 // Modules
-import NativePayments from './NativePayments';
+import NativePayments from '../NativeBridge';
 
 export default class PaymentResponse {
   // Internal Slots

@@ -6,8 +6,11 @@
     "run:ios": "cd examples/native && yarn run:ios",
     "run:web": "cd examples/web && yarn run:web",
     "run:demo": "cd examples/native && yarn run:demo",
+    "lint": "eslint ./lib/js",
+    "lint:fix": "npm run lint -- --fix",
     "test": "jest"
   },
+  "homepage": "https://github.com/freeman-industries/react-native-easy-payments",
   "repository": "https://github.com/freeman-industries/react-native-easy-payments",
   "keywords": [
     "react",
@@ -34,13 +37,16 @@
     "validator": "^7.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "babel-jest": "20.0.3",
     "babel-preset-react-native": "2.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-flowtype": "^4.7.0",
     "eslint-plugin-import": "^2.17.3",
     "husky": "^0.14.1",
     "jest": "20.0.4",
+    "react-native": "^0.63.3",
     "react-test-renderer": "16.0.0-alpha.12"
   },
   "peerDependencies": {
@@ -50,8 +56,8 @@
   "jest": {
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/examples/",
-      "lib/js/__tests__"
+      "/examples/"
     ]
-  }
+  },
+  "main": "js/index.js"
 }

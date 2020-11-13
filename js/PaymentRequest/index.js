@@ -14,14 +14,14 @@ import type {
   PaymentShippingType,
   PaymentDetailsIOS,
   PaymentDetailsIOSRaw,
-} from './types';
+} from '../types';
 import type PaymentResponseType from './PaymentResponse';
 
 // Modules
 import { DeviceEventEmitter, Platform } from 'react-native';
 import uuid from 'uuid/v1';
 
-import NativePayments from './NativePayments';
+import NativePayments from '../NativeBridge';
 import PaymentResponse from './PaymentResponse';
 import PaymentRequestUpdateEvent from './PaymentRequestUpdateEvent';
 
@@ -225,6 +225,11 @@ export default class PaymentRequest {
     );
   }
 
+  // initialize acceptPromiseResolver/Rejecter
+  // mainly for unit tests to work without going through the complete flow.
+  _acceptPromiseResolver = () => {}
+  _acceptPromiseRejecter = () => {}
+
   _setupEventListeners() {
     // Internal Events
     this._userDismissSubscription = DeviceEventEmitter.addListener(
@@ -274,7 +279,7 @@ export default class PaymentRequest {
 
     // Eventually calls `PaymentRequestUpdateEvent._handleDetailsUpdate` when
     // after a details are returned
-    this._shippingAddressChangeFn(event);
+    this._shippingAddressChangeFn && this._shippingAddressChangeFn(event);
   }
 
   _handleShippingOptionChange({ selectedShippingOptionId }: Object) {
@@ -286,7 +291,7 @@ export default class PaymentRequest {
       this
     );
 
-    this._shippingOptionChangeFn(event);
+    this._shippingOptionChangeFn && this._shippingOptionChangeFn(event);
   }
 
   _getPlatformDetails(details: *) {
