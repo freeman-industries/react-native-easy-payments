@@ -23,6 +23,7 @@
 - (void)createStripeTokenWithPayment:(PKPayment *_Nonnull)payment
                           completion:(void (^_Nullable)(NSString * _Nullable token, NSError * _Nullable error))completion;
 - (void)confirmSetupIntent:clientSecret cardParams:cardParams completion:(void (^_Nullable)(NSString * _Nullable token, NSError * _Nullable error))completion;
+- (void)confirmPayment:clientSecret paymentParams:paymentParams completion:(void (^_Nullable)(NSString * _Nullable token, NSError * _Nullable error))completion;
 
 // Braintree
 - (void)configureBraintreeGateway:(NSDictionary *_Nonnull)gatewayParameters;
