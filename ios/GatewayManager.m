@@ -1,4 +1,5 @@
 #import "GatewayManager.h"
+#import <React/RCTConvert.h>
 
 #if __has_include(<Stripe/Stripe.h>)
 #import <Stripe/Stripe.h>
