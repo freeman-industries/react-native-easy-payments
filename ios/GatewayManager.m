@@ -150,4 +150,9 @@
 #endif
 }
 
+- (UIViewController *)authenticationPresentingViewController
+{
+    return RCTPresentedViewController();
+}
+
 @end
