@@ -1,3 +1,3 @@
 export { default as PaymentRequest } from './PaymentRequest';
 export { PKPaymentButton } from './PKPaymentButton';
-export { Intents } from './Intents';
+export * as Intents from './Intents';
