@@ -56,6 +56,37 @@ RCT_EXPORT_METHOD(createPaymentRequest: (NSDictionary *)methodData
     callback(@[[NSNull null]]);
 }
 
+
+RCT_EXPORT_METHOD(savePaymentMethod: (NSDictionary *)methodData
+                  cardParams: (NSDictionary *)cardParams
+                  callback: (RCTResponseSenderBlock)callback)
+{    
+    NSString *merchantId = methodData[@"merchantIdentifier"];
+    NSDictionary *gatewayParameters = methodData[@"paymentMethodTokenizationParameters"][@"parameters"];
+    
+    NSLog(@"%@", gatewayParameters);
+
+    if (gatewayParameters) {
+        self.hasGatewayParameters = true;
+       self.gatewayManager = [GatewayManager new];
+       [self.gatewayManager configureGateway:gatewayParameters merchantIdentifier:merchantId];
+    }
+
+    if (self.hasGatewayParameters) {
+        [self.gatewayManager savePaymentMethod:methodData[@"clientSecret"] cardParams:cardParams completion:^(NSString * _Nullable token, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"Failed");
+                    NSLog(@"%@", error);
+                    NSString *message = error.localizedDescription;
+                    callback(@[message, [NSNull null]]);
+                    return;
+                }
+            
+            callback(@[[NSNull null], token]);
+        }];
+    }
+}
+
 RCT_EXPORT_METHOD(show:(RCTResponseSenderBlock)callback)
 {
     

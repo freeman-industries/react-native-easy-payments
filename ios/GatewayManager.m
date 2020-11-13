@@ -66,7 +66,7 @@
 }
 
 
-- (void)savePaymentMethod:(NSString *)secret cardParams:(NSDictionary *)cardParams completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
+- (void)savePaymentMethod:(NSString *)clientSecret cardParams:(NSDictionary *)cardParams completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
 {
 #if __has_include(<Stripe/Stripe.h>)
     // Collect card details
@@ -76,7 +76,7 @@
     card.expMonth = [RCTConvert NSNumber:cardParams[@"expMonth"]];
     card.cvc = [RCTConvert NSString:cardParams[@"cvc"]];
     STPPaymentMethodParams *paymentMethodParams = [STPPaymentMethodParams paramsWithCard:card billingDetails:nil metadata:nil];
-    STPSetupIntentConfirmParams *setupIntentParams = [[STPSetupIntentConfirmParams alloc] initWithClientSecret:secret];
+    STPSetupIntentConfirmParams *setupIntentParams = [[STPSetupIntentConfirmParams alloc] initWithClientSecret:clientSecret];
     setupIntentParams.paymentMethodParams = paymentMethodParams;
 
     // Confirm setup intent (authorize use of paymend method for future payments)
