@@ -22,3 +22,22 @@ export function savePaymentMethod(methodData, cardParams) {
     );
   });
 }
+
+export function confirmPayment(methodData, paymentParams) {
+	return new Promise((resolve, reject) => {
+		if (IS_ANDROID) {
+		  // TODO Android
+		  return resolve();
+		}
+	
+		ReactNativePayments.confirmPayment(
+		  methodData,
+		  paymentParams,
+		  (err, data) => {
+			if (err) return reject(err);
+	
+			resolve(data);
+		  },
+		);
+	  });
+}
