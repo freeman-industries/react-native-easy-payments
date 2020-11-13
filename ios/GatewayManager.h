@@ -22,6 +22,7 @@
             merchantIdentifier:(NSString *_Nonnull)merchantId;
 - (void)createStripeTokenWithPayment:(PKPayment *_Nonnull)payment
                           completion:(void (^_Nullable)(NSString * _Nullable token, NSError * _Nullable error))completion;
+- (void)confirmCardSetup:secret cardParams:cardParams completion:(void (^_Nullable)(NSString * _Nullable token, NSError * _Nullable error))completion;
 
 // Braintree
 - (void)configureBraintreeGateway:(NSDictionary *_Nonnull)gatewayParameters;
