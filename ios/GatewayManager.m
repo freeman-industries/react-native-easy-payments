@@ -66,7 +66,7 @@
 }
 
 
-- (void)confirmCardSetup:(NSString *)secret cardParams:(NSDictionary *)cardParams completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
+- (void)savePaymentMethod:(NSString *)secret cardParams:(NSDictionary *)cardParams completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
 {
 #if __has_include(<Stripe/Stripe.h>)
     // Collect card details
