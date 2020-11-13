@@ -41,8 +41,3 @@ export function confirmPayment(methodData, paymentParams) {
 		);
 	  });
 }
-
-export const Intents ={
-	confirmPayment,
-	savePaymentMethod,
-}
