@@ -109,13 +109,13 @@
 #if __has_include(<Stripe/Stripe.h>)
     // Collect card details
     STPPaymentMethodCardParams *card = [[STPPaymentMethodCardParams alloc] init];
-    card.number = [RCTConvert NSString:cardParams[@"number"]];
-    card.expYear = [RCTConvert NSNumber:cardParams[@"expYear"]];
-    card.expMonth = [RCTConvert NSNumber:cardParams[@"expMonth"]];
-    card.cvc = [RCTConvert NSString:cardParams[@"cvc"]];
+    card.number = [RCTConvert NSString:paymentParams[@"number"]];
+    card.expYear = [RCTConvert NSNumber:paymentParams[@"expYear"]];
+    card.expMonth = [RCTConvert NSNumber:paymentParams[@"expMonth"]];
+    card.cvc = [RCTConvert NSString:paymentParams[@"cvc"]];
     STPPaymentMethodParams *paymentMethodParams = [STPPaymentMethodParams paramsWithCard:card billingDetails:nil metadata:nil];
     STPPaymentIntentParams *paymentIntentParams = [[STPPaymentIntentParams alloc] initWithClientSecret:clientSecret];
-    setupIntentParams.paymentMethodParams = paymentMethodParams;
+    paymentIntentParams.paymentMethodParams = paymentMethodParams;
 
     // Confirm setup intent (authorize use of paymend method for future payments)
     STPPaymentHandler *paymentHandler = [STPPaymentHandler sharedHandler];
@@ -131,7 +131,7 @@
                     break;
                 }
                 case STPPaymentHandlerActionStatusSucceeded: {
-                    completion(setupIntent.paymentMethodID, nil);
+                    completion(paymentIntent.sourceId, nil);
                     break;
                 }
                 default:
