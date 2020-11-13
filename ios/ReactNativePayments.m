@@ -73,7 +73,7 @@ RCT_EXPORT_METHOD(savePaymentMethod: (NSDictionary *)methodData
     }
 
     if (self.hasGatewayParameters) {
-        [self.gatewayManager savePaymentMethod:methodData[@"clientSecret"] cardParams:cardParams completion:^(NSString * _Nullable token, NSError * _Nullable error) {
+        [self.gatewayManager confirmSetupIntent:methodData[@"clientSecret"] cardParams:cardParams completion:^(NSString * _Nullable token, NSError * _Nullable error) {
                 if (error) {
                     NSLog(@"Failed");
                     NSLog(@"%@", error);
