@@ -1,6 +1,8 @@
 # react-native-easy-payments
 
-[![Build Status](https://travis-ci.org/freeman-industries/react-native-easy-payments.svg?branch=master)](https://travis-ci.org/freeman-industries/react-native-easy-payments)
+[![Codeship Status for freeman-industries/react-native-easy-payments](https://app.codeship.com/projects/d6d17e65-23f0-4154-b7ce-33ce59471b08/status?branch=master)](https://app.codeship.com/projects/418096) Codeship (maintainers)
+
+[![Build Status](https://travis-ci.org/freeman-industries/react-native-easy-payments.svg?branch=master)](https://travis-ci.org/freeman-industries/react-native-easy-payments) Travis (public)
 
 Welcome to the best and most comprehensive library for integrating payments into your React Native app.
 
@@ -27,7 +29,7 @@ npx jetify
 
 # Guides
 
-Please note: the current `examples` directory hasn't bee updated since the fork. They probably won't work out of the box, but feel free to explore the code.
+Please note: the current `examples` directory hasn't been updated since the fork. They probably won't work out of the box, but feel free to explore the code.
 
 - Stripe: Apple Pay
 
