@@ -14,12 +14,28 @@ import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import com.stripe.android.PaymentConfiguration;
+
 public class GatewayManager {
-  public WritableNativeArray getSupportedGateways() {
-      WritableNativeArray supportedGateways = new WritableNativeArray();
+    public WritableNativeArray getSupportedGateways() {
+        WritableNativeArray supportedGateways = new WritableNativeArray();
 
-      supportedGateways.pushString("stripe");
+        supportedGateways.pushString("stripe");
 
-      return supportedGateways;
+        return supportedGateways;
+    }
+
+  public void configureGateway(ReadableMap gatewayParameters, ReactApplicationContext context) {
+      String gateway = gatewayParameters.getString("gateway");
+
+      if(gateway === "stripe") {
+        configureStripeGateway(gatewayParameters, merchantIdentifier, context);
+      }
   }
+
+    private void configureStripeGateway(ReadableMap gatewayParameters, ReactApplicationContext context) {
+        String stripePublishableKey = gatewayParameters.getString("stripe:publishableKey");
+
+        PaymentConfiguration.init(context.getApplicationContext(), stripePublishableKey);
+    }
 }
