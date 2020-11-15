@@ -21,6 +21,14 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+# Android
+android/**/.idea
+android/**/*.iml
+android/**/gradlew*
+android/**/*.properties
+android/**/.gradle
+android/**/gradle
+
 # npm
 #
 node_modules/
