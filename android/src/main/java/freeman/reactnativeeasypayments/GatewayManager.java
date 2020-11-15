@@ -28,8 +28,8 @@ public class GatewayManager {
   public void configureGateway(ReadableMap gatewayParameters, ReactApplicationContext context) {
       String gateway = gatewayParameters.getString("gateway");
 
-      if(gateway === "stripe") {
-        configureStripeGateway(gatewayParameters, merchantIdentifier, context);
+      if(gateway == "stripe") {
+        configureStripeGateway(gatewayParameters, context);
       }
   }
 
