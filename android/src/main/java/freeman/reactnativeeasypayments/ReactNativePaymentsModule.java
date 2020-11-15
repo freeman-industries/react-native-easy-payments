@@ -21,8 +21,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.identity.intents.model.UserAddress;
 import com.google.android.gms.wallet.*;
 
-import com.stripe.android.PaymentConfiguration;
-
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactBridge;
 import com.facebook.react.bridge.ReadableArray;
@@ -251,6 +249,16 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule implem
         }
 
         Wallet.Payments.loadFullWallet(mGoogleApiClient, fullWalletRequest, LOAD_FULL_WALLET_REQUEST_CODE);
+    }
+
+    @ReactMethod
+    public void savePaymentMethod(
+      ReadableMap methodData,
+      ReadableMap cardParams,
+      Callback callback
+    ) {
+      // TODO initialize gateway manager
+      // TODO trigger confirmSetupIntent in gateway
     }
 
     // Private Method
