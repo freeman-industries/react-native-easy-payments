@@ -1,21 +1,19 @@
 package freeman.reactnativeeasypayments;
 
+import freeman.reactnativeeasypayments.GatewayManager;
+
 import android.view.WindowManager;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.annotation.RequiresPermission;
+import androidx.annotation.RequiresPermission;
 import android.util.Log;
 
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.ReactBridge;
-import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -23,6 +21,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.identity.intents.model.UserAddress;
 import com.google.android.gms.wallet.*;
 
+import com.stripe.android.PaymentConfiguration;
+
+import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.ReactBridge;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
