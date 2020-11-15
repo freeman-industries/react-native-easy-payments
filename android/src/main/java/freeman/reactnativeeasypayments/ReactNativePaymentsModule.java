@@ -145,7 +145,9 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule implem
     // ---------------------------------------------------------------------------------------------
     @ReactMethod
     public void getSupportedGateways(Callback errorCallback, Callback successCallback) {
-        WritableNativeArray supportedGateways = new WritableNativeArray();
+        GatewayManager gatewayManager = new GatewayManager();
+
+        WritableNativeArray supportedGateways = gatewayManager.getSupportedGateways();
 
         successCallback.invoke(supportedGateways);
     }
