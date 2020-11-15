@@ -1,4 +1,4 @@
-package com.reactnativepayments;
+package freeman.reactnativeeasypayments;
 
 import android.view.WindowManager;
 
