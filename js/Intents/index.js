@@ -21,6 +21,7 @@ export async function savePaymentMethod(
 ) {
   switch (Platform.OS) {
     case 'ios':
+    case 'android':
       return new Promise((resolve, reject) => {
         const sanitizedCardParams = stringifyObject(cardParams);
         // const sanitizedBillingDetails = stringifyObject(billingDetails);
