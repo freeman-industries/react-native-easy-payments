@@ -262,7 +262,9 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule implem
         ReadableMap paymentMethodTokenizationParameters = methodData.getMap("paymentMethodTokenizationParameters");
         ReadableMap gatewayParameters = paymentMethodTokenizationParameters.getMap("parameters");
 
-        gatewayManager.configureGateway(gatewayParameters, context);
+        gatewayManager.configureGateway(gatewayParameters, reactContext);
+
+        callback.invoke("Not implemented", null);
 
         // TODO trigger confirmSetupIntent in gateway
     }
