@@ -257,8 +257,14 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule implem
       ReadableMap cardParams,
       Callback callback
     ) {
-      // TODO initialize gateway manager
-      // TODO trigger confirmSetupIntent in gateway
+        GatewayManager gatewayManager = new GatewayManager();
+
+        ReadableMap paymentMethodTokenizationParameters = methodData.getMap("paymentMethodTokenizationParameters");
+        ReadableMap gatewayParameters = paymentMethodTokenizationParameters.getMap("parameters");
+
+        gatewayManager.configureGateway(gatewayParameters, context);
+
+        // TODO trigger confirmSetupIntent in gateway
     }
 
     // Private Method
