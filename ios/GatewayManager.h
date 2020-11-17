@@ -28,6 +28,8 @@
                                                         NSError *_Nullable error))completion;
 - (void)confirmSetupIntent:clientSecret
                 cardParams:cardParams
+                billingDetails:billingDetails
+                metadata:metadata
                 completion:
 (void (^_Nullable)(NSString *_Nullable token,
                    NSError *_Nullable error))completion;

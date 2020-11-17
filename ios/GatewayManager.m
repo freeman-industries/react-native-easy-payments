@@ -76,6 +76,8 @@ completion
 
 - (void)confirmSetupIntent:(NSString *)clientSecret
                 cardParams:(NSDictionary *)cardParams
+                billingDetails:(NSDictionary *)billingDetails
+                metadata:(NSDictionary *)metadata
                 completion:(void (^)(NSString *_Nullable,
                                      NSError *_Nullable))completion
 {
