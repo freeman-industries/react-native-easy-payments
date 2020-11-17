@@ -2,48 +2,67 @@ import { NativeModules, Platform } from 'react-native';
 
 const { ReactNativePayments } = NativeModules;
 
-const IS_ANDROID = Platform.OS === 'android';
-
 // we use this quick method to ensure that all the values inside the object are strings, which can cause some crashes with the Stripe SDK and strict types in Objective-C.
 const stringifyObject = obj => {
+  const result = {};
+
   for (const key in obj) {
-    obj[key] += '';
+    result[key] = obj[key] + '';
   }
 
-  return obj;
+  return result;
 };
 
 export async function savePaymentMethod(
   methodData,
-  cardParams,
+  cardParams = {},
+  billingDetails = {},
+  metadata = {},
 ) {
-  if (IS_ANDROID) return;
+  switch (Platform.OS) {
+    case 'ios':
+      return new Promise((resolve, reject) => {
+        const sanitizedCardParams = stringifyObject(cardParams);
+        const sanitizedBillingDetails = stringifyObject(billingDetails);
+        const sanitizedMetadata = stringifyObject(metadata);
 
-  return new Promise((resolve, reject) => {
-    ReactNativePayments.savePaymentMethod(
-      methodData,
-      stringifyObject(cardParams),
-      (err, data) => {
-        if (err) return reject(err);
+        // stripe iOS SDK mostly takes things as strings, apart from the following params which need to be numbers.
+        if (sanitizedCardParams['expMonth']) sanitizedCardParams['expMonth'] = parseInt(sanitizedCardParams['expMonth']);
+        if (sanitizedCardParams['expYear']) sanitizedCardParams['expYear'] = parseInt(sanitizedCardParams['expYear']);
 
-        resolve(data);
-      },
-    );
-  });
+        ReactNativePayments.savePaymentMethod(
+          methodData,
+          sanitizedCardParams,
+          sanitizedBillingDetails,
+          sanitizedMetadata,
+          (err, data) => {
+            if (err) return reject(err);
+    
+            resolve(data);
+          },
+        );
+      });
+  }
 }
 
-export async function confirmPayment(methodData, paymentParams) {
-  if (IS_ANDROID) return;
-  
-  return new Promise((resolve, reject) => {
-    ReactNativePayments.confirmPayment(
-      methodData,
-      stringifyObject(paymentParams),
-      (err, data) => {
-        if (err) return reject(err);
-  
-        resolve(data);
-      },
-    );
-  });
+export async function confirmPayment(
+  methodData,
+  paymentParams,
+) {
+  // TODO extra fields and sanitize
+
+  switch (Platform.OS) {
+    case 'ios':
+      return new Promise((resolve, reject) => {
+        ReactNativePayments.confirmPayment(
+          methodData,
+          stringifyObject(paymentParams),
+          (err, data) => {
+            if (err) return reject(err);
+      
+            resolve(data);
+          },
+        );
+      });
+  }
 }
