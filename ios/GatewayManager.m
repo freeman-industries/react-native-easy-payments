@@ -14,15 +14,15 @@
 + (NSArray *)getSupportedGateways
 {
     NSMutableArray *supportedGateways = [NSMutableArray array];
-
+    
 #if __has_include(<Stripe/Stripe.h>)
     [supportedGateways addObject:@"stripe"];
 #endif
-
+    
 #if __has_include(<BraintreeApplePay/BraintreeApplePay.h>)
     [supportedGateways addObject:@"braintree"];
 #endif
-
+    
     return [supportedGateways copy];
 }
 
@@ -30,27 +30,34 @@
       merchantIdentifier:(NSString *_Nonnull)merchantId
 {
 #if __has_include(<Stripe/Stripe.h>)
-    if ([gatewayParameters[@"gateway"] isEqualToString:@"stripe"]) {
-        [self configureStripeGateway:gatewayParameters merchantIdentifier:merchantId];
+    if ([gatewayParameters[@"gateway"] isEqualToString:@"stripe"])
+    {
+        [self configureStripeGateway:gatewayParameters
+                  merchantIdentifier:merchantId];
     }
 #endif
-
+    
 #if __has_include(<BraintreeApplePay/BraintreeApplePay.h>)
-    if ([gatewayParameters[@"gateway"] isEqualToString:@"braintree"]) {
+    if ([gatewayParameters[@"gateway"] isEqualToString:@"braintree"])
+    {
         [self configureBraintreeGateway:gatewayParameters];
     }
 #endif
 }
 
 - (void)createTokenWithPayment:(PKPayment *_Nonnull)payment
-                    completion:(void (^_Nullable)(NSString * _Nullable token, NSError * _Nullable error))completion
+                    completion:(void (^_Nullable)(NSString *_Nullable token,
+                                                  NSError *_Nullable error))
+completion
 {
 #if __has_include(<Stripe/Stripe.h>)
-    [self createStripeTokenWithPayment:payment completion:completion];
+    [self createStripeTokenWithPayment:payment
+                            completion:completion];
 #endif
-
+    
 #if __has_include(<BraintreeApplePay/BraintreeApplePay.h>)
-    [self createBraintreeTokenWithPayment:payment completion:completion];
+    [self createBraintreeTokenWithPayment:payment
+                               completion:completion];
 #endif
 }
 
@@ -60,13 +67,17 @@
 {
 #if __has_include(<Stripe/Stripe.h>)
     NSString *stripePublishableKey = gatewayParameters[@"stripe:publishableKey"];
-    [[STPPaymentConfiguration sharedConfiguration] setPublishableKey:stripePublishableKey];
-    [[STPPaymentConfiguration sharedConfiguration] setAppleMerchantIdentifier:merchantId];
+    [[STPPaymentConfiguration sharedConfiguration]
+     setPublishableKey:stripePublishableKey];
+    [[STPPaymentConfiguration sharedConfiguration]
+     setAppleMerchantIdentifier:merchantId];
 #endif
 }
 
-
-- (void)confirmSetupIntent:(NSString *)clientSecret cardParams:(NSDictionary *)cardParams completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
+- (void)confirmSetupIntent:(NSString *)clientSecret
+                cardParams:(NSDictionary *)cardParams
+                completion:(void (^)(NSString *_Nullable,
+                                     NSError *_Nullable))completion
 {
 #if __has_include(<Stripe/Stripe.h>)
     // Collect card details
@@ -75,24 +86,36 @@
     card.expYear = [RCTConvert NSNumber:cardParams[@"expYear"]];
     card.expMonth = [RCTConvert NSNumber:cardParams[@"expMonth"]];
     card.cvc = [RCTConvert NSString:cardParams[@"cvc"]];
-    STPPaymentMethodParams *paymentMethodParams = [STPPaymentMethodParams paramsWithCard:card billingDetails:nil metadata:nil];
-    STPSetupIntentConfirmParams *setupIntentParams = [[STPSetupIntentConfirmParams alloc] initWithClientSecret:clientSecret];
+    STPPaymentMethodParams *paymentMethodParams =
+    [STPPaymentMethodParams paramsWithCard:card
+                            billingDetails:nil
+                                  metadata:nil];
+    STPSetupIntentConfirmParams *setupIntentParams =
+    [[STPSetupIntentConfirmParams alloc] initWithClientSecret:clientSecret];
     setupIntentParams.paymentMethodParams = paymentMethodParams;
-
+    
     // Confirm setup intent (authorize use of paymend method for future payments)
     STPPaymentHandler *paymentHandler = [STPPaymentHandler sharedHandler];
-    [paymentHandler confirmSetupIntent:(STPSetupIntentConfirmParams *)setupIntentParams withAuthenticationContext:self completion:^(STPPaymentHandlerActionStatus status, STPSetupIntent *setupIntent, NSError *error) {
+    [paymentHandler
+     confirmSetupIntent:(STPSetupIntentConfirmParams *)setupIntentParams
+     withAuthenticationContext:self
+     completion:^(STPPaymentHandlerActionStatus status,
+                  STPSetupIntent *setupIntent, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            switch (status) {
-                case STPPaymentHandlerActionStatusFailed: {
+            switch (status)
+            {
+                case STPPaymentHandlerActionStatusFailed:
+                {
                     completion(nil, error);
                     break;
                 }
-                case STPPaymentHandlerActionStatusCanceled: {
+                case STPPaymentHandlerActionStatusCanceled:
+                {
                     completion(nil, error);
                     break;
                 }
-                case STPPaymentHandlerActionStatusSucceeded: {
+                case STPPaymentHandlerActionStatusSucceeded:
+                {
                     completion(setupIntent.paymentMethodID, nil);
                     break;
                 }
@@ -104,7 +127,10 @@
 #endif
 }
 
-- (void)confirmPayment:(NSString *)clientSecret paymentParams:(NSDictionary *)paymentParams completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
+- (void)confirmPayment:(NSString *)clientSecret
+         paymentParams:(NSDictionary *)paymentParams
+            completion:
+(void (^)(NSString *_Nullable, NSError *_Nullable))completion
 {
 #if __has_include(<Stripe/Stripe.h>)
     // Collect card details
@@ -113,24 +139,36 @@
     card.expYear = [RCTConvert NSNumber:paymentParams[@"expYear"]];
     card.expMonth = [RCTConvert NSNumber:paymentParams[@"expMonth"]];
     card.cvc = [RCTConvert NSString:paymentParams[@"cvc"]];
-    STPPaymentMethodParams *paymentMethodParams = [STPPaymentMethodParams paramsWithCard:card billingDetails:nil metadata:nil];
-    STPPaymentIntentParams *paymentIntentParams = [[STPPaymentIntentParams alloc] initWithClientSecret:clientSecret];
+    STPPaymentMethodParams *paymentMethodParams =
+    [STPPaymentMethodParams paramsWithCard:card
+                            billingDetails:nil
+                                  metadata:nil];
+    STPPaymentIntentParams *paymentIntentParams =
+    [[STPPaymentIntentParams alloc] initWithClientSecret:clientSecret];
     paymentIntentParams.paymentMethodParams = paymentMethodParams;
-
+    
     // Confirm setup intent (authorize use of paymend method for future payments)
     STPPaymentHandler *paymentHandler = [STPPaymentHandler sharedHandler];
-    [paymentHandler confirmPayment:(STPPaymentIntentParams *)paymentIntentParams withAuthenticationContext:self completion:^(STPPaymentHandlerActionStatus status, STPPaymentIntent *paymentIntent, NSError *error) {
+    [paymentHandler confirmPayment:(STPPaymentIntentParams *)paymentIntentParams
+         withAuthenticationContext:self
+                        completion:^(STPPaymentHandlerActionStatus status,
+                                     STPPaymentIntent *paymentIntent,
+                                     NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            switch (status) {
-                case STPPaymentHandlerActionStatusFailed: {
+            switch (status)
+            {
+                case STPPaymentHandlerActionStatusFailed:
+                {
                     completion(nil, error);
                     break;
                 }
-                case STPPaymentHandlerActionStatusCanceled: {
+                case STPPaymentHandlerActionStatusCanceled:
+                {
                     completion(nil, error);
                     break;
                 }
-                case STPPaymentHandlerActionStatusSucceeded: {
+                case STPPaymentHandlerActionStatusSucceeded:
+                {
                     completion(paymentIntent.sourceId, nil);
                     break;
                 }
@@ -142,15 +180,21 @@
 #endif
 }
 
-
-- (void)createStripeTokenWithPayment:(PKPayment *)payment completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
+- (void)createStripeTokenWithPayment:(PKPayment *)payment
+                          completion:(void (^)(NSString *_Nullable,
+                                               NSError *_Nullable))completion
 {
 #if __has_include(<Stripe/Stripe.h>)
-    [[STPAPIClient sharedClient] createTokenWithPayment:payment completion:^(STPToken * _Nullable token, NSError * _Nullable error)
-    {
-        if (error) {
+    [[STPAPIClient sharedClient]
+     createTokenWithPayment:payment
+     completion:^(STPToken *_Nullable token,
+                  NSError *_Nullable error) {
+        if (error)
+        {
             completion(nil, error);
-        } else {
+        }
+        else
+        {
             completion(token.tokenId, nil);
         }
     }];
@@ -161,29 +205,33 @@
 - (void)configureBraintreeGateway:(NSDictionary *_Nonnull)gatewayParameters
 {
 #if __has_include(<BraintreeApplePay/BraintreeApplePay.h>)
-    NSString *braintreeTokenizationKey = gatewayParameters[@"braintree:tokenizationKey"];
-    self.braintreeClient = [[BTAPIClient alloc] initWithAuthorization:braintreeTokenizationKey];
+    NSString *braintreeTokenizationKey =
+    gatewayParameters[@"braintree:tokenizationKey"];
+    self.braintreeClient =
+    [[BTAPIClient alloc] initWithAuthorization:braintreeTokenizationKey];
 #endif
 }
 
 - (void)createBraintreeTokenWithPayment:(PKPayment *_Nonnull)payment
-                    completion:(void (^_Nullable)(NSString * _Nullable token, NSError * _Nullable error))completion
+                             completion:
+(void (^_Nullable)(NSString *_Nullable token,
+                   NSError *_Nullable error))
+completion
 {
 #if __has_include(<BraintreeApplePay/BraintreeApplePay.h>)
-    BTApplePayClient *applePayClient = [[BTApplePayClient alloc]
-                                        initWithAPIClient:self.braintreeClient];
-
-    [applePayClient tokenizeApplePayPayment:payment
-                                 completion:^(BTApplePayCardNonce *tokenizedApplePayPayment,
-                                              NSError *error)
-    {
-
-
-        if (error) {
-
+    BTApplePayClient *applePayClient =
+    [[BTApplePayClient alloc] initWithAPIClient:self.braintreeClient];
+    
+    [applePayClient
+     tokenizeApplePayPayment:payment
+     completion:^(BTApplePayCardNonce *tokenizedApplePayPayment,
+                  NSError *error) {
+        if (error)
+        {
             completion(nil, error);
-        } else {
-
+        }
+        else
+        {
             completion(tokenizedApplePayPayment.nonce, nil);
         }
     }];
