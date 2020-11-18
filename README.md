@@ -1,8 +1,8 @@
-# react-native-easy-payments
+# react-native-payments
 
-[![Codeship Status for freeman-industries/react-native-easy-payments](https://app.codeship.com/projects/d6d17e65-23f0-4154-b7ce-33ce59471b08/status?branch=master)](https://app.codeship.com/projects/418096) Codeship (maintainers)
+[![Codeship Status for freeman-industries/react-native-payments](https://app.codeship.com/projects/d6d17e65-23f0-4154-b7ce-33ce59471b08/status?branch=master)](https://app.codeship.com/projects/418096) Codeship (maintainers)
 
-[![Build Status](https://travis-ci.org/freeman-industries/react-native-easy-payments.svg?branch=master)](https://travis-ci.org/freeman-industries/react-native-easy-payments) Travis (public)
+[![Build Status](https://travis-ci.org/freeman-industries/react-native-payments.svg?branch=master)](https://travis-ci.org/freeman-industries/react-native-payments) Travis (public)
 
 Welcome to the best and most comprehensive library for integrating payments into your React Native app.
 
@@ -11,7 +11,7 @@ This library is designed to be fully compatible with React Native 0.60 and onwar
 # Installation
 
 ```
-npm install --save react-native-easy-payments
+npm install --save react-native-payments
 ```
 
 ## iOS
@@ -69,6 +69,6 @@ Our plan for this library is for it to be useful to all React Native developers 
 
 # In the wild
 
-These amazing people use `react-native-easy-payments` in their projects.
+These amazing people use `react-native-payments` in their projects.
 
 - @lesalonapp
