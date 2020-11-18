@@ -6,6 +6,11 @@ Welcome to the best and most comprehensive library for integrating payments like
 
 This library is designed to be fully compatible with React Native 0.61 and onwards.
 
+<div>
+<img width="200px" src="https://user-images.githubusercontent.com/1627824/27758096-9fc6bf9a-5dc1-11e7-9d8f-b2d409302fc7.gif" />
+<img width="200px" src="https://user-images.githubusercontent.com/1627824/30039983-d75d1b3e-91d8-11e7-9ac9-71d2ed12958c.png" />
+</div>
+
 # Installation
 
 ```
@@ -117,11 +122,6 @@ __Features__
 - __Future-proof__. Use a W3C Standards API, supported by companies like Google, Firefox and others.
 - __Cross-platform__. Share payments code between your iOS, Android, and web apps.
 - __Add-ons__. Easily enable support for Stripe or Braintree via add-ons.
-
-<div>
-<img width="280px" src="https://user-images.githubusercontent.com/1627824/27758096-9fc6bf9a-5dc1-11e7-9d8f-b2d409302fc7.gif" />
-<img width="280px" src="https://user-images.githubusercontent.com/1627824/30039983-d75d1b3e-91d8-11e7-9ac9-71d2ed12958c.png" />
-</div>
 
 ---
 
