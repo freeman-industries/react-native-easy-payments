@@ -22,12 +22,14 @@ DerivedData
 *.xcuserstate
 
 # Android
-android/**/.idea
-android/**/*.iml
-android/**/gradlew*
-android/**/*.properties
-android/**/.gradle
-android/**/gradle
+**/android/**/.idea
+**/android/**/*.iml
+**/android/**/gradlew*
+**/android/**/*.properties
+**/android/**/.gradle
+**/android/**/gradle
+**/android/**/.settings
+**/android/**/.project
 
 # npm
 #
