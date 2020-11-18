@@ -37,7 +37,7 @@ export async function savePaymentMethod(
           // sanitizedBillingDetails,
           // sanitizedMetadata,
           (err, data) => {
-            if (err) return reject(err);
+            if (err) return reject(new Error(err));
     
             resolve(data);
           },
