@@ -39,6 +39,8 @@ const NativePayments: {
     });
   },
 
+  // TODO based on Naoufal's talk on YouTube the intention of canMakePayments is for it to work like this, so I'm thinking we can integrate Yegor's code into canMakePayments.
+  // NF 2020-11-18
   canMakePaymentsUsingNetworks(usingNetworks: []) {
     // IOS method to check that user has available cards at Apple Pay
     // https://developer.apple.com/documentation/passkit/pkpaymentauthorizationviewcontroller/1616187-canmakepaymentsusingnetworks?language=occ
