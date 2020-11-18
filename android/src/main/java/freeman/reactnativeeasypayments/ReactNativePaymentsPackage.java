@@ -1,5 +1,5 @@
 
-package com.reactnativepayments;
+package freeman.reactnativeeasypayments;
 
 import java.util.Arrays;
 import java.util.Collections;
