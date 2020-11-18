@@ -9,6 +9,7 @@ const IS_ANDROID = Platform.OS === 'android';
 
 const NativePayments: {
   canMakePayments: boolean,
+  canMakePaymentsUsingNetworks: boolean,
   supportedGateways: Array<string>,
   createPaymentRequest: PaymentDetailsBase => Promise<any>,
   handleDetailsUpdate: PaymentDetailsBase => Promise<any>,
@@ -35,6 +36,24 @@ const NativePayments: {
 
       // On iOS, canMakePayments is exposed as a constant.
       resolve(ReactNativePayments.canMakePayments);
+    });
+  },
+
+  // TODO based on Naoufal's talk on YouTube the intention of canMakePayments is for it to work like this, so I'm thinking we can integrate Yegor's code into canMakePayments.
+  // NF 2020-11-18
+  canMakePaymentsUsingNetworks(usingNetworks: []) {
+    // IOS method to check that user has available cards at Apple Pay
+    // https://developer.apple.com/documentation/passkit/pkpaymentauthorizationviewcontroller/1616187-canmakepaymentsusingnetworks?language=occ
+
+    return new Promise((resolve) => {
+      if (IS_ANDROID) {
+        resolve(false);
+      }
+
+      ReactNativePayments.canMakePaymentsUsingNetworks(
+        usingNetworks,
+        (err, data) => resolve(data)
+      );
     });
   },
 

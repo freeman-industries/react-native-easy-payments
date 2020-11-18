@@ -303,14 +303,33 @@ export default class PaymentRequest {
   _getPlatformDetailsIOS(details: PaymentDetailsIOSRaw): PaymentDetailsIOS {
     const {
       paymentData: serializedPaymentData,
+      billingContact: serializedBillingContact,
+      shippingContact: serializedShippingContact,
       paymentToken,
       transactionIdentifier,
     } = details;
 
     const isSimulator = transactionIdentifier === 'Simulated Identifier';
 
+    let billingContact = null;
+    let shippingContact = null;
+
+    if (serializedBillingContact && serializedBillingContact !== ""){
+      try{
+        billingContact = JSON.parse(serializedBillingContact);
+      }catch(e){}
+    }
+
+    if (serializedShippingContact && serializedShippingContact !== ""){
+      try{
+        shippingContact = JSON.parse(serializedShippingContact);
+      }catch(e){}
+    }
+
     return {
       paymentData: isSimulator ? null : JSON.parse(serializedPaymentData),
+      billingContact,
+      shippingContact,
       paymentToken,
       transactionIdentifier,
     };
@@ -447,7 +466,8 @@ export default class PaymentRequest {
       const normalizedDetails = convertDetailAmountsToString(this._details);
       const options = this._options;
 
-      return NativePayments.show(platformMethodData, normalizedDetails, options);
+      // Note: resolve will be triggered via _acceptPromiseResolver() from somwhere else
+      return NativePayments.show(platformMethodData, normalizedDetails, options).catch(reject);
     });
 
     return this._acceptPromise;
@@ -481,5 +501,7 @@ export default class PaymentRequest {
       getPlatformMethodData(JSON.parse(this._serializedMethodData), Platform.OS)
     );
   }
+
+  static canMakePaymentsUsingNetworks = NativePayments.canMakePaymentsUsingNetworks;
 }
 
