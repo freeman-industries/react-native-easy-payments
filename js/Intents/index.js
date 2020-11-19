@@ -36,10 +36,10 @@ export async function savePaymentMethod(
           sanitizedCardParams,
           // sanitizedBillingDetails,
           // sanitizedMetadata,
-          (err, data) => {
-            if (err) return reject(new Error(err));
-    
-            resolve(data);
+          (error, result) => {
+            if (error) return reject(new Error(error));
+              
+            resolve(result);
           },
         );
       });
@@ -55,11 +55,19 @@ export async function confirmPayment(
   switch (Platform.OS) {
     case 'ios':
       return new Promise((resolve, reject) => {
+        const sanitizedPaymentParams = stringifyObject(paymentParams);
+        // const sanitizedBillingDetails = stringifyObject(billingDetails);
+        // const sanitizedMetadata = stringifyObject(metadata);
+
+        // stripe iOS SDK mostly takes things as strings, apart from the following params which need to be numbers.
+        if (sanitizedPaymentParams['expMonth']) sanitizedPaymentParams['expMonth'] = parseInt(sanitizedPaymentParams['expMonth']);
+        if (sanitizedPaymentParams['expYear']) sanitizedPaymentParams['expYear'] = parseInt(sanitizedPaymentParams['expYear']);
+
         ReactNativePayments.confirmPayment(
           methodData,
-          stringifyObject(paymentParams),
+          sanitizedPaymentParams,
           (err, data) => {
-            if (err) return reject(err);
+            if (err) return reject(new Error(err));
       
             resolve(data);
           },
