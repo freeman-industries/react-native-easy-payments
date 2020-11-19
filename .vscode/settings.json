@@ -1,0 +1,44 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+	"editor.tabSize": 2,
+	"editor.insertSpaces": true,
+
+	"files.watcherExclude": {
+		"**/node_modules": true
+	},
+
+	"search.exclude": {
+    "**/node_modules": true,
+    "**/examples": true,
+	},
+
+	"editor.formatOnSave": false,
+	"javascript.format.enable": false,
+	"eslint.autoFixOnSave": true,
+
+	"javascript.validate.enable": false,
+
+	"[json]": {
+		"editor.quickSuggestions": {
+			"strings": true
+		},
+		"editor.suggest.insertMode": "replace",
+		"editor.formatOnSave": true,
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+  },
+  
+  "[java]": {
+		"editor.quickSuggestions": {
+			"strings": true
+		},
+		"editor.suggest.insertMode": "replace",
+		"editor.formatOnSave": true,
+		"editor.insertSpaces": true,
+		"editor.tabSize": 4
+	},
+
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+}

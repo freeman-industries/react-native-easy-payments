@@ -37,7 +37,6 @@ node_modules/
 # editors
 #
 jsconfig.json
-.vscode/*
 
 # project
 #
