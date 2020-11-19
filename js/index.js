@@ -1,5 +1,7 @@
-import * as Intents from './Intents';
+import * as _Intents from './Intents';
+import _PaymentRequest from './PaymentRequest';
+import { PKPaymentButton } from './PKPaymentButton';
 
-export { default as PaymentRequest } from './PaymentRequest';
-export { PKPaymentButton } from './PKPaymentButton';
-export { Intents };
+export const ApplePayButton = PKPaymentButton;
+export const PaymentRequest = _PaymentRequest;
+export const Intents = _Intents;
