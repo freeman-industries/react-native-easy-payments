@@ -28,6 +28,7 @@ android/**/gradlew*
 android/**/*.properties
 android/**/.gradle
 android/**/gradle
+android/**/.project
 
 # npm
 #
