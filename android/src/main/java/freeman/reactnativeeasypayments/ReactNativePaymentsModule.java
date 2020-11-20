@@ -35,8 +35,11 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.Stripe;
+import com.stripe.android.ApiResultCallback;
+import com.stripe.android.SetupIntentResult;
 import com.stripe.android.model.PaymentMethodCreateParams;
 import com.stripe.android.model.ConfirmSetupIntentParams;
+import com.stripe.android.model.SetupIntent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,7 +142,7 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
-            WeakReference<Activity> weakActivity = new WeakReference<>(this);
+            // WeakReference<Activity> weakActivity = new WeakReference<>(this);
 
             // Handle the result of stripe.confirmSetupIntent
             stripeClient.onSetupResult(requestCode, data, new ApiResultCallback<SetupIntentResult>() {
@@ -149,10 +152,10 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
                     SetupIntent.Status status = setupIntent.getStatus();
                     if (status == SetupIntent.Status.Succeeded) {
                         // Setup completed successfully
-                        setupIntentCallback(null, setupIntent.paymentMethodID);
+                        setupIntentCallback.invoke(null, setupIntent.getPaymentMethodId());
                     } else if (status == SetupIntent.Status.RequiresPaymentMethod) {
                         // Setup failed – allow retrying
-                        setupIntentCallback(
+                        setupIntentCallback.invoke(
                                 "The payment wasn't successfully verified and saved. This might because you entered incorrect details or cancelled a verification step.",
                                 null);
                     }
