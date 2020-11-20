@@ -286,12 +286,11 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
     public void savePaymentMethod(ReadableMap methodData, ReadableMap cardParams, Callback callback) {
         ReadableMap paymentMethodTokenizationParameters = methodData.getMap("paymentMethodTokenizationParameters");
         ReadableMap gatewayParameters = paymentMethodTokenizationParameters.getMap("parameters");
+        String clientSecret = methodData.getString("clientSecret");
 
         configureGateway(gatewayParameters);
 
-        callback.invoke("Not implemented", null);
-
-        // TODO trigger confirmSetupIntent in gateway
+        confirmSetupIntent(clientSecret, cardParams, callback);
     }
 
     // Private Method

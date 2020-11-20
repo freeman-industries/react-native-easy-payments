@@ -96,9 +96,7 @@ RCT_EXPORT_METHOD(confirmPayment
 
 RCT_EXPORT_METHOD(savePaymentMethod
                   : (NSDictionary *)methodData cardParams
-                  : (NSDictionary *)cardParams billingDetails
-                  : (NSDictionary *)billingDetails metadata
-                  : (NSDictionary *)metadata callback
+                  : (NSDictionary *)cardParams callback
                   : (RCTResponseSenderBlock)callback)
 {
     NSString *merchantId = methodData[@"merchantIdentifier"];
@@ -117,8 +115,6 @@ RCT_EXPORT_METHOD(savePaymentMethod
     if (self.hasGatewayParameters) {
         [self.gatewayManager confirmSetupIntent:methodData[@"clientSecret"]
                                      cardParams:cardParams
-                                 billingDetails:billingDetails
-                                       metadata:metadata
                                      completion:^(NSString *_Nullable token,
                                                   NSError *_Nullable error) {
             if (error) {
