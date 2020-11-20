@@ -138,7 +138,33 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
     private final ActivityEventListener stripeEventListener = new BaseActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            WeakReference<Activity> weakActivity = new WeakReference<>(this);
 
+            // Handle the result of stripe.confirmSetupIntent
+            stripeClient.onSetupResult(requestCode, data, new ApiResultCallback<SetupIntentResult>() {
+                @Override
+                public void onSuccess(@NonNull SetupIntentResult result) {
+                    SetupIntent setupIntent = result.getIntent();
+                    SetupIntent.Status status = setupIntent.getStatus();
+                    if (status == SetupIntent.Status.Succeeded) {
+                        // Setup completed successfully
+                        setupIntentCallback(null, setupIntent.paymentMethodID);
+                    } else if (status == SetupIntent.Status.RequiresPaymentMethod) {
+                        // Setup failed – allow retrying
+                        setupIntentCallback(
+                                "The payment wasn't successfully verified and saved. This might because you entered incorrect details or cancelled a verification step.",
+                                null);
+                    }
+                }
+
+                @Override
+                public void onError(@NonNull Exception e) {
+                    // Setup request failed
+                    setupIntentCallback("It wasn't possible to connect to your card issuer and verify your card.",
+                            null);
+                }
+            });
         }
     };
 
