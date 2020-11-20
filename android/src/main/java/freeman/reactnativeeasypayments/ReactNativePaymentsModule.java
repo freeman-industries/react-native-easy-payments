@@ -164,8 +164,8 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
                 @Override
                 public void onError(@NonNull Exception e) {
                     // Setup request failed
-                    setupIntentCallback("It wasn't possible to connect to your card issuer and verify your card.",
-                            null);
+                    setupIntentCallback
+                            .invoke("It wasn't possible to connect to your card issuer and verify your card.", null);
                 }
             });
         }
@@ -414,7 +414,7 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
 
         // stripe client will launch SCA verification step into the activity if needed,
         // and then on competion the result will come back through onActivityResult
-        stripeClient.confirmSetupIntent(this, confirmParams);
+        stripeClient.confirmSetupIntent(getCurrentActivity(), confirmParams);
     }
 
     // Networking
