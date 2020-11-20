@@ -383,7 +383,7 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
         // set the callback to trigger later on from onActivityResult
         setupIntentCallback = callback;
 
-        // stripe client with launch SCA verification step into the activity if needed,
+        // stripe client will launch SCA verification step into the activity if needed,
         // and then on competion the result will come back through onActivityResult
         stripeClient.confirmSetupIntent(this, confirmParams);
     }
