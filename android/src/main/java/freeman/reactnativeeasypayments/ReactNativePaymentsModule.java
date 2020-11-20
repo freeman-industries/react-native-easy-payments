@@ -355,6 +355,24 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
         stripeClient = new Stripe(reactContext.getApplicationContext(), stripePublishableKey);
     }
 
+    private void confirmSetupIntent(String clientSecret, ReadableMap cardParams, Callback callback) {
+        // initialize the card and use the copy() method to input raw card data.
+        PaymentMethodCreateParams.Card card = new PaymentMethodCreateParams.Card();
+        card = card.copy(cardParams.getString("number"), cardParams.getInt("expMonth"), cardParams.getInt("expYear"),
+                cardParams.getString("cvc"), null, null);
+
+        PaymentMethodCreateParams paymentMethodParams = PaymentMethodCreateParams.create(card);
+
+        ConfirmSetupIntentParams confirmParams = ConfirmSetupIntentParams.create(paymentMethodParams, clientSecret);
+
+        // set the callback to trigger later on from onActivityResult
+        setupIntentCallback = callback;
+
+        // stripe client with launch SCA verification step into the activity if needed,
+        // and then on competion the result will come back through onActivityResult
+        stripeClient.confirmSetupIntent(this, confirmParams);
+    }
+
     // Networking
     // ---------------------------------------------------------------------------------------------
     @Override
