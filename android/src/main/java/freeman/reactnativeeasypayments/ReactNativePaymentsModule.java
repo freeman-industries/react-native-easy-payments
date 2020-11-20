@@ -33,6 +33,11 @@ import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import com.stripe.android.PaymentConfiguration;
+import com.stripe.android.Stripe;
+import com.stripe.android.model.PaymentMethodCreateParams;
+import com.stripe.android.model.ConfirmSetupIntentParams;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,12 +59,13 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
     private static Callback mShowErrorCallback = null;
     private static Callback mGetFullWalletSuccessCallback = null;
     private static Callback mGetFullWalletErrorCallback = null;
+    private static Callback setupIntentCallback = null;
 
     public static final String REACT_CLASS = "ReactNativePayments";
 
     private static ReactApplicationContext reactContext = null;
 
-    private final ActivityEventListener mActivityEventListener = new BaseActivityEventListener() {
+    private final ActivityEventListener walletEventListener = new BaseActivityEventListener() {
         @Override
         public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
             // retrieve the error code, if available
@@ -129,6 +135,13 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
         }
     };
 
+    private final ActivityEventListener stripeEventListener = new BaseActivityEventListener() {
+        @Override
+        public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+
+        }
+    };
+
     public ReactNativePaymentsModule(ReactApplicationContext context) {
         // Pass in the context to the constructor and save it so you can emit events
         // https://facebook.github.io/react-native/docs/native-modules-android.html#the-toast-module
@@ -136,7 +149,9 @@ public class ReactNativePaymentsModule extends ReactContextBaseJavaModule
 
         reactContext = context;
 
-        reactContext.addActivityEventListener(mActivityEventListener);
+        reactContext.addActivityEventListener(walletEventListener);
+        reactContext.addActivityEventListener(stripeEventListener);
+
     }
 
     @Override
